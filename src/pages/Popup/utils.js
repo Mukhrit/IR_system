@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 export const getCurrentTabUrl = (callback) => {
 	const queryInfo = { active: true, lastFocusedWindow: true };
 
