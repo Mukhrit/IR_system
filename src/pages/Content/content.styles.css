@@ -1,0 +1,14 @@
+p[data-ctrlf-selected],
+ul[data-ctrlf-selected],
+div[data-ctrlf-selected] ol[data-ctrlf-selected] {
+	border-style: dashed;
+	border-color: black;
+	border-width: 2px;
+}
+
+.ctrlf-marked {
+	position: relative;
+	display: inline;
+    background-color: yellow;
+}
+
