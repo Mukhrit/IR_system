@@ -73,7 +73,7 @@ chrome.runtime.onMessage.addListener((msg, sender, callback) => {
 			}
             break;
 		default:
-			console.error("Did not recognize message type: ", msg);
+			console.error("Did not recognize message type: ");
 			return true;
 	}
 });

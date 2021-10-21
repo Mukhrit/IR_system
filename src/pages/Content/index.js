@@ -78,7 +78,7 @@ const handleModelSuccess = (msg) => {
 const handleQuery = (msg) => {
 	console.log("Searching query:", msg.query);
 
-	const textElements = $("p,ul,ol");
+	const textElements = $("p,ul");
 	const searchable = textElements
 		.filter(searchableElement)
 		.filter((idx, el) => el.offsetParent !== null);
