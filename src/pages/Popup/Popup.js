@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./tailwind.css";
-import Spinner from "../../assets/img/spinner.svg";
-import { getCurrentTabUrl } from "./utils";
 const sendMessageToBackground = (message) => {
 	console.log("send msg to background:", message);
 	chrome.runtime.sendMessage(message);
@@ -47,16 +45,10 @@ const registerListener = (setState, setAnswers) => {
 	});
 };
 const Popup = () => {
-	const [url, setUrl] = useState("");
 	const [loading, Setloading] = useState(true);
 	const [query, SetQuery] = useState("");
 	var [answers, setAnswers] = useState([]);
 	var [selectionIdx, setSelectionIdx] = useState(0);
-	useEffect(() => {
-		getCurrentTabUrl((url) => {
-			setUrl(url || "undefined");
-		});
-	}, []);
 	useEffect(() => {
 		sendMessageToBackground({
 			type: "POPUP_LOADED",
@@ -92,11 +84,11 @@ const Popup = () => {
 		setAnswers([]);
 		setSelectionIdx(0);
 	};
-	const Increment =()=>{
+	const Increment = () => {
 		if (selectionIdx + 1 < answers.length) {
 			setSelectionIdx(selectionIdx + 1);
 		}
-	}
+	};
 	const Decrement = () => {
 		if (selectionIdx - 1 >= 0) {
 			setSelectionIdx(selectionIdx - 1);
@@ -152,84 +144,56 @@ const Popup = () => {
 					</svg>
 				</div>
 			)}
-			
-			{!loading && answers.length>0 && <div className="text-gray-500 flex flex-row items-center divide-x">
-				<div
-					className="hover:text-gray-400 cursor-pointer"
-					onClick={() => Increment()}
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-5"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
+
+			{!loading && answers.length > 0 && (
+				<div className="text-gray-500 flex flex-row items-center divide-x">
+					<div
+						className="hover:text-gray-400 cursor-pointer"
+						onClick={() => Increment()}
 					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M7 11l5-5m0 0l5 5m-5-5v12"
-						/>
-					</svg>
-				</div>
-				<div
-					className="hover:text-gray-400 cursor-pointer"
-					onClick={() => Decrement()}
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-5"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-5 w-5"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M7 11l5-5m0 0l5 5m-5-5v12"
+							/>
+						</svg>
+					</div>
+					<div
+						className="hover:text-gray-400 cursor-pointer"
+						onClick={() => Decrement()}
 					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M17 13l-5 5m0 0l-5-5m5 5V6"
-						/>
-					</svg>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-5 w-5"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M17 13l-5 5m0 0l-5-5m5 5V6"
+							/>
+						</svg>
+					</div>
+					<div className="font-semibold">
+						{selectionIdx + 1}/{answers.length}
+					</div>
+					<div className="font-semibold">
+						{Number.parseFloat(answers[selectionIdx].answer.score).toFixed(2)}
+					</div>
 				</div>
-				<div className="font-semibold">
-					{selectionIdx+1}/{answers.length}
-				</div>	
-			</div>}
-			{/* {url}
-			{answers.map((obj) => (
-				<div>
-					{obj.answer.text}
-					{obj.answer.score}
-				</div>
-			))}
-			<button
-				onClick={() => search()}
-				className="bg-yellow-100 p-2 m-1 pointer-cursor"
-			>
-				{" "}
-				Go
-			</button>
-			<button
-				onClick={() => setSelectionIdx(selectionIdx + 1)}
-				className="bg-yellow-100 p-2 m-1 pointer-cursor"
-			>
-				{" "}
-				Next
-			</button>
-			<button
-				onClick={() => setSelectionIdx(selectionIdx - 1)}
-				className="bg-yellow-100 p-2 m-1 pointer-cursor"
-			>
-				{" "}
-				Prev
-			</button>
-			<button className="bg-red-100 p-2 m-1 pointer-cursor">
-				{" "}
-				Remove logo
-			</button>
-			<p>Response from content:</p>
-			{loading ? "loading" : "not loading"} */}
+			)}
+
 		</div>
 	);
 };
